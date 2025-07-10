@@ -9,6 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Authenticate to GCP using service account key stored in GitHub secret
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 363.0.0'
+
+      - name: Test gcloud CLI
+        run: gcloud info
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -20,3 +34,5 @@ jobs:
       - name: Build Production App
         run: ./scripts/buildprod.sh
 
+      - name: Build Docker image and push to Artifact Registry
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo
