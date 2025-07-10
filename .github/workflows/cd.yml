@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Build Production App
+        run: ./scripts/buildprod.sh
+
       # Authenticate to GCP using service account key stored in GitHub secret
       - id: auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-      - name: Build Production App
-        run: ./scripts/buildprod.sh
 
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
