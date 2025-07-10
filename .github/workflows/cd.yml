@@ -15,6 +15,9 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
+      - name: Build Production App
+        run: ./scripts/buildprod.sh
+
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
         with:
@@ -34,8 +37,5 @@ jobs:
         with:
           go-version: '1.23'
 
-      - name: Build Production App
-        run: ./scripts/buildprod.sh
-
       - name: Build Docker image and push to Artifact Registry
-        run: gcloud builds submit --tag us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely:latest
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely-app:latest
