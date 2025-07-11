@@ -27,8 +27,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
-    # This part
+    run: ./scripts/migrateup.sh
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
