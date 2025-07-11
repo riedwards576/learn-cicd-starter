@@ -27,9 +27,11 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    run: ./scripts/migrateup.sh
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - name: Run DB migration
+        run: ./scripts/migrateup.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   deploy:
