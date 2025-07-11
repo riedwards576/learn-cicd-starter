@@ -42,3 +42,12 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely-app:latest --region us-central1 --allow-unauthenticated --project lively-machine-465521-t6 --max-instances=4
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    # This part
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
