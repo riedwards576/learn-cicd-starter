@@ -38,7 +38,7 @@ jobs:
         run: gcloud projects list
 
       - name: Build Docker image and push to Artifact Registry
-        run: gcloud builds submit --tag us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely-app:latest
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely-app:latest --service-account=cloud-run-deployer@lively-machine-465521-t6.iam.gserviceaccount.com
 
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image us-central1-docker.pkg.dev/lively-machine-465521-t6/notely-ar-repo/notely-app:latest --region us-central1 --allow-unauthenticated --project lively-machine-465521-t6 --max-instances=4
